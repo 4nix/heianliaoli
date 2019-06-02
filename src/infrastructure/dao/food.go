@@ -7,7 +7,7 @@ import (
 )
 
 type Food struct {
-	Id			int
+	Id			int64
 	Name		string
 	Img			string
 	CTime		string
