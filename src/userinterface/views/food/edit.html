@@ -1,0 +1,16 @@
+<html>
+    <head>edit</head>
+    <body>
+        <form method="post" action="/doEdit">
+            <div>
+                <div>名称:<input type="text" value="{{.Name}}" name="Name" /></div>
+                <div>图片:<input type="text" value="{{.Name}}" name="Img" /></div>
+                <div>顺序:<input type="text" value="{{.Name}}" name="Seq" /></div>
+                <div>
+                    <input type='hidden' name='Id' value="{{.Id}}" />
+                    <input type="submit" value="提交" />
+                </div>
+            </div>
+        </form>
+    </body>
+</html>
