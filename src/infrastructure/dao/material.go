@@ -1,20 +1,15 @@
 package dao
 
 import (
-	"database/sql"
+	// "database/sql"
 	// "time"
-	"fmt"
+	// "fmt"
 )
 
-type Food struct {
-	Id int64 `sql:"id"`
-	Name string `sql:"name"`
-	Img string `sql:"img"`
-}
-var tableName string = "food"
+type Material struct {}
 
-func (f Food) Insert(name string, img string) (int64, error) {
-	res, err := DB.Exec("insert into " + tableName + " (`name`, `img`) values (?, ?)", name, img)
+func (material *Material) Add(name string, img string) (int64, error) {
+	res, err := DB.Exec("insert into `food` (`name`, `img`) values (?, ?)", name, img)
 	if err != nil {
 		return 0, err
 	}
@@ -22,44 +17,18 @@ func (f Food) Insert(name string, img string) (int64, error) {
 	return res.LastInsertId()
 }
 
-func (f Food) Select(id int64) (Food, error) {
-	row := DB.QueryRow("select `id`, `name`, `img` from " + tableName + 
-		" where `id` = ? and `is_delete` = 0", id)
-	food := Food{}
-	if err := row.Scan(&food.Id, &food.Name, &food.Img); err != nil {
-		if err == sql.ErrNoRows {
-			return food, nil
-		}
-		return food, err
-	}
+// func FetchOne(id int64) (*Food, error) {
+// 	row := DB.QueryRow("select `id`, `name`, `img` from `food` where `id` = ? and `is_delete` = 0", id)
+// 	food := Food{}
+// 	if err := row.Scan(&food.Id, &food.Name, &food.Img); err != nil {
+// 		if err == sql.ErrNoRows {
+// 			return nil, nil
+// 		}
+// 		return nil, err
+// 	}
 
-	return food, nil
-}
-
-func (f *Food) SelectMany(limit int, offset int) ([]Food, error) {
-	rows, err := DB.Query("select `id`, `name`, `img` from " + tableName + 
-		" where `is_delete` = 0 limit ?, ?", offset, limit)
-	if err != nil {
-		return nil, err
-	}
-
-	defer rows.Close()
-	foods := []Food{}
-
-	for rows.Next() {
-		food := Food{}
-		if err := rows.Scan(&food.Id, &food.Name, &food.Img); err != nil {
-			return nil, err
-		}
-		foods = append(foods, food)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	fmt.Println(foods)
-
-	return foods, nil
-}
+// 	return &food, nil
+// }
 
 // func Fetch(offset int, limit int) ([]Food, error) {
 // 	rows, err := DB.Query("select `id`, `name`, `img` from `food` where `is_delete` = 0 limit ?, ?", offset, limit)

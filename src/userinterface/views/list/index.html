@@ -1,0 +1,11 @@
+<html>
+    <head>edit</head>
+    <body>
+        <table>
+            <tr><td>Id</td><td>Name</td><td>Img</td><td></td></tr>
+            {{ range $key, $value := .list}}
+                <tr><td>{{ $value.Id }}</td><td>{{ $value.Name }}</td><td>{{ $value.Img }}</td><td></td></tr>
+            {{ end }}
+        </table>
+    </body>
+</html>
