@@ -5,7 +5,8 @@ import (
 	"github.com/kataras/iris/mvc"
 	"./src/userinterface/api"
 	"./src/userinterface/controllers"
-	// "strconv"
+	"strconv"
+	"./src/domain/entity"
 )
 
 func main () {
@@ -13,12 +14,13 @@ func main () {
 	app.Get("/api/list", api.List)
 
 	app.Post("/doEdit", func(ctx iris.Context) {
-		// id, _ := strconv.ParseInt(ctx.PostValue("Id"), 10, 64)
-		// if (id > 0) {
-		// 	domain.Update(id, ctx.PostValue("Name"), ctx.PostValue("Img"))
-		// } else {
-		// 	domain.Add(ctx.PostValue("Name"), ctx.PostValue("Img"))
-		// }
+		id, _ := strconv.ParseInt(ctx.PostValue("Id"), 10, 64)
+		foodEntity := entity.Food{}
+		if (id > 0) {
+			foodEntity.Update(id, ctx.PostValue("Name"), ctx.PostValue("Img"))
+		} else {
+			foodEntity.Add(ctx.PostValue("Name"), ctx.PostValue("Img"))
+		}
 		
 		ctx.JSON(iris.Map{
 			"name": ctx.PostValue("Name"),

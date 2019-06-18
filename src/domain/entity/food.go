@@ -1,7 +1,7 @@
 package entity
 
 import(
-	// "../repository"
+	"../repository"
 )
 
 type Food struct {
@@ -13,12 +13,16 @@ type Food struct {
 	IsDelete	int
 }
 
-// var foodRepository *repository.Food
+var foodRepository repository.Food
 
-// func (f Food) Add(name string, img string) int64 {
-// 	id := foodRepository.Add(name, img)
-// 	return id
-// }
+func (f Food) Add(name string, img string) int64 {
+	id := foodRepository.Add(name, img)
+	return id
+}
+
+func (f Food) Update(id int64, name string, img string) {
+	
+}
 
 // func (f *Food) GetById(id int64) {
 
