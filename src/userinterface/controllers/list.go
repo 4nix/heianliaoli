@@ -4,14 +4,14 @@ import (
 	"github.com/kataras/iris/mvc"
 	// "github.com/kataras/iris"
 
-	"../../domain/aggregation"
+	"../../domain/service"
 )
 
 type ListController struct {}
-var listAggregation aggregation.FoodList = aggregation.FoodList{}
+var foodService service.FoodService = service.FoodService{}
 
 func (c *ListController) Get() mvc.Result {
-	list := listAggregation.GetList(1, 20)
+	list := foodService.GetList(1, 20)
 
 
 	// for v, _ := range *list {
