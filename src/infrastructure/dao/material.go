@@ -1,15 +1,19 @@
 package dao
 
 import (
-	// "database/sql"
+	"database/sql"
 	// "time"
 	// "fmt"
 )
 
-type Material struct {}
+type Material struct {
+	Id int64 `sql:"id"`
+	Name string `sql:"name"`
+	Img string `sql:"img"`
+}
 
-func (material *Material) Add(name string, img string) (int64, error) {
-	res, err := DB.Exec("insert into `food` (`name`, `img`) values (?, ?)", name, img)
+func (material Material) Add(name string, img string) (int64, error) {
+	res, err := DB.Exec("insert into `material` (`name`, `img`) values (?, ?)", name, img)
 	if err != nil {
 		return 0, err
 	}
@@ -17,18 +21,18 @@ func (material *Material) Add(name string, img string) (int64, error) {
 	return res.LastInsertId()
 }
 
-// func FetchOne(id int64) (*Food, error) {
-// 	row := DB.QueryRow("select `id`, `name`, `img` from `food` where `id` = ? and `is_delete` = 0", id)
-// 	food := Food{}
-// 	if err := row.Scan(&food.Id, &food.Name, &food.Img); err != nil {
-// 		if err == sql.ErrNoRows {
-// 			return nil, nil
-// 		}
-// 		return nil, err
-// 	}
+func (f Material) Select(id int64) (Material, error) {
+	row := DB.QueryRow("select `id`, `name`, `img` from material where `id` = ? and `is_delete` = 0", id)
+	material := Material{}
+	if err := row.Scan(&material.Id, &material.Name, &material.Img); err != nil {
+		if err == sql.ErrNoRows {
+			return material, nil
+		}
+		return material, err
+	}
 
-// 	return &food, nil
-// }
+	return material, nil
+}
 
 // func Fetch(offset int, limit int) ([]Food, error) {
 // 	rows, err := DB.Query("select `id`, `name`, `img` from `food` where `is_delete` = 0 limit ?, ?", offset, limit)
