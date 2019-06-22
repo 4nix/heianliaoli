@@ -12,7 +12,7 @@ type Material struct {
 	Img string `sql:"img"`
 }
 
-func (material Material) Add(name string, img string) (int64, error) {
+func (material Material) Insert(name string, img string) (int64, error) {
 	res, err := DB.Exec("insert into `material` (`name`, `img`) values (?, ?)", name, img)
 	if err != nil {
 		return 0, err
@@ -34,55 +34,25 @@ func (f Material) Select(id int64) (Material, error) {
 	return material, nil
 }
 
-// func Fetch(offset int, limit int) ([]Food, error) {
-// 	rows, err := DB.Query("select `id`, `name`, `img` from `food` where `is_delete` = 0 limit ?, ?", offset, limit)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	defer rows.Close()
-// 	foods := []Food{}
-// 	for rows.Next() {
-// 		food := Food{}
+func (f *Material) SelectMany(limit int, offset int) ([]Material, error) {
+	rows, err := DB.Query("select `id`, `name`, `img` from material where `is_delete` = 0 limit ?, ?", offset, limit)
+	if err != nil {
+		return nil, err
+	}
 
-// 		if err := rows.Scan(&food.Id, &food.Name, &food.Img); err != nil {
-// 			return nil, err
-// 		}
+	defer rows.Close()
+	materials := []Material{}
 
-// 		fmt.Println(food.Id)
-// 		foods = append(foods, food)
-// 	}
-// 	if err := rows.Err(); err != nil {
-// 		return nil, err
-// 	}
+	for rows.Next() {
+		material := Material{}
+		if err := rows.Scan(&material.Id, &material.Img, &material.Name); err != nil {
+			return nil, err
+		}
+		materials = append(materials, material)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
 
-// 	return foods, nil
-// }
-
-
-
-// func UpdateName(food *Food) error {
-// 	_, err := DB.Exec("update `food` set `name` = ?, `u_time` = ? where id = ?", food.Name, time.Now(), food.Id)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	return nil
-// }
-
-// func UpdateImg(food *Food) error {
-// 	_, err := DB.Exec("update `food` set `img` = ?, `u_time` = ? where id = ?", food.Name, time.Now(), food.Img)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	return nil
-// }
-
-// func Delete(food *Food) error {
-// 	_, err := DB.Exec("update `food` set `is_delete` = 1, `u_time` = ? where id = ?", time.Now(), food.Id)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	return nil
-// }
+	return materials, nil
+}

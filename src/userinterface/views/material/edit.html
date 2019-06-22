@@ -1,13 +1,13 @@
 <html>
-    <head>edit</head>
+    <head>material edit</head>
     <body>
-        <form method="post" action="/doEdit">
+        <form method="post" action="/material/doEdit">
             <div>
                 <div>名称:<input type="text" value="{{.Name}}" name="Name" /></div>
                 <div>图片:<input type="text" value="{{.Img}}" name="Img" /></div>
                 <div>顺序:<input type="text" value="{{.Seq}}" name="Seq" /></div>
                 <div>
-                    <input type='hidden' name='Id' value="{{.Id}}" />
+                    <input type='text' name='foodId' value="{{.foodId}}" />
                     <input type="submit" value="提交" />
                 </div>
             </div>

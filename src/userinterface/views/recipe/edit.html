@@ -1,0 +1,15 @@
+<html>
+    <head>recipe edit</head>
+    <body>
+        <form method="post" action="/recipe/doEdit">
+            <div>
+                <div>内容:<input type="text" value="{{.Info}}" name="Info" /></div>
+                <div>是否皇冠:<input type="text" value="{{.isBest}}" name="isBest" /></div>
+                <div>
+                    <input type='text' name='foodId' value="{{.foodId}}" />
+                    <input type="submit" value="提交" />
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

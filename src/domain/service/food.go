@@ -8,7 +8,7 @@ import (
 
 type FoodService struct {}
 // var foodEntity *entity.Food
-var foodRepository repository.Food
+var foodRepository repository.Food = repository.Food{} 
 
 func (f FoodService) GetList (page int, pagesize int) []dao.Food {
 	list := foodRepository.Fetch(pagesize, (page - 1) * pagesize)

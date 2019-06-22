@@ -6,17 +6,17 @@ import (
 	"../../infrastructure/dao"
 )
 
-type RecipieService struct {}
+type RecipeService struct {}
 // var foodEntity *entity.Food
-var recipieRepository repository.Recipie
+var recipeRepository repository.Recipe = repository.Recipe{}
 
-func (f RecipieService) GetList (id int) []dao.Recipie {
-	list := recipieRepository.Fetch(id)
+func (f RecipeService) GetList (id int64, page int, pagesize int) []dao.Recipe {
+	list := recipeRepository.Fetch(id, pagesize, (page - 1) * pagesize)
 
 	return list
 }
 
-func (f FoodService) Add(foodId int64, name string, img string) int64 {
-	id := recipieRepository.Add(foodId, name, img)
+func (f RecipeService) Add(foodId int64, info string, isBest int) int64 {
+	id := recipeRepository.Add(foodId, info, isBest)
 	return id
 }

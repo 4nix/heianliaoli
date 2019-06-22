@@ -4,24 +4,24 @@ import (
 	"../../infrastructure/dao"
 )
 
-type Recipie struct {}
+type Recipe struct {}
 
-var daoRecipie dao.Recipie = dao.Recipie{}
+var daoRecipe dao.Recipe = dao.Recipe{}
 
-func (food Food) Add (name string, img string) (int64) {
-	id, _ := daoFood.Insert(name, img)
+func (f Recipe) Add (foodId int64, info string, isBest int) (int64) {
+	id, _ := daoRecipe.Insert(foodId, info, isBest)
 
 	return id
 }
 
-func (f Food) FetchOne (id int64) dao.Food {
-	food, _ := daoFood.Select(id)
+func (f Recipe) FetchOne (id int64) dao.Recipe {
+	recipe, _ := daoRecipe.Select(id)
 
-	return food
+	return recipe
 }
 
-func (f Food) Fetch (limit int, offset int) []dao.Food {
-	foods, _ := daoFood.SelectMany(limit, offset)
+func (f Recipe) Fetch (id int64, limit int, offset int) []dao.Recipe {
+	recipes, _ := daoRecipe.SelectMany(id, limit, offset)
 
-	return foods
+	return recipes
 }
