@@ -45,7 +45,7 @@ func (f *Material) SelectMany(limit int, offset int) ([]Material, error) {
 
 	for rows.Next() {
 		material := Material{}
-		if err := rows.Scan(&material.Id, &material.Img, &material.Name); err != nil {
+		if err := rows.Scan(&material.Id, &material.Name, &material.Img); err != nil {
 			return nil, err
 		}
 		materials = append(materials, material)

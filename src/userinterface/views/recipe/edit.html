@@ -3,13 +3,27 @@
     <body>
         <form method="post" action="/recipe/doEdit">
             <div>
-                <div>内容:<input type="text" value="{{.Info}}" name="Info" /></div>
-                <div>是否皇冠:<input type="text" value="{{.isBest}}" name="isBest" /></div>
+                <div>是否皇冠:<input type="checkbox" value="{{.isBest}}" name="isBest" /></div>
+                <div id="material">材料:
+                    <button type="button" onclick="add()">增加</button>
+                    <select name="material[]" class="m">
+                        {{ range $key, $value := .materialList }}
+                            <option value="{{ $value.Id }}">{{ $value.Name }} </option>
+                        {{ end }}
+                    </select>
+                </div>
                 <div>
                     <input type='text' name='foodId' value="{{.foodId}}" />
                     <input type="submit" value="提交" />
                 </div>
             </div>
         </form>
+        <script>
+            function add() {
+                var select = document.querySelector('.m').cloneNode(true)
+                document.getElementById('material').insertAdjacentElement('beforeend', select)
+                console.log('aaa')
+            }
+        </script>
     </body>
 </html>
